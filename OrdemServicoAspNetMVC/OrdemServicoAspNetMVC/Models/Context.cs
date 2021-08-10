@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OrdemServicoAspNetMVC.Models;
 
 namespace OrdemServicoAspNetMVC.Models
 {
@@ -14,5 +15,9 @@ namespace OrdemServicoAspNetMVC.Models
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ServicoMvc;Integrated Security=true");
         }
+
+        public DbSet<OrdemServicoAspNetMVC.Models.PessoaFisica> PessoaFisica { get; set; }
+
+        public DbSet<OrdemServicoAspNetMVC.Models.PessoaJuridica> PessoaJuridica { get; set; }
     }
 }

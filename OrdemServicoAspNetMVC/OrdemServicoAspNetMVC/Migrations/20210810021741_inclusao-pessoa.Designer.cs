@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrdemServicoAspNetMVC.Models;
 
 namespace OrdemServicoAspNetMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210810021741_inclusao-pessoa")]
+    partial class inclusaopessoa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,38 +73,9 @@ namespace OrdemServicoAspNetMVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Pessoa");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Pessoa");
-                });
-
-            modelBuilder.Entity("OrdemServicoAspNetMVC.Models.PessoaFisica", b =>
-                {
-                    b.HasBaseType("OrdemServicoAspNetMVC.Models.Pessoa");
-
-                    b.Property<string>("Cpf")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("PessoaFisica");
-                });
-
-            modelBuilder.Entity("OrdemServicoAspNetMVC.Models.PessoaJuridica", b =>
-                {
-                    b.HasBaseType("OrdemServicoAspNetMVC.Models.Pessoa");
-
-                    b.Property<string>("Cnpj")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeFantansia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("PessoaJuridica");
                 });
 
             modelBuilder.Entity("OrdemServicoAspNetMVC.Models.OrdemServico", b =>

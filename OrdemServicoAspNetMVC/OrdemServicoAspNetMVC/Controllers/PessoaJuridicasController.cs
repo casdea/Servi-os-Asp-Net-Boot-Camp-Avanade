@@ -9,22 +9,22 @@ using OrdemServicoAspNetMVC.Models;
 
 namespace OrdemServicoAspNetMVC.Controllers
 {
-    public class OrdemServicoesController : Controller
+    public class PessoaJuridicasController : Controller
     {
         private readonly Context _context;
 
-        public OrdemServicoesController(Context context)
+        public PessoaJuridicasController(Context context)
         {
             _context = context;
         }
 
-        // GET: OrdemServicoes
+        // GET: PessoaJuridicas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ordensServicos.ToListAsync());
+            return View(await _context.PessoaJuridica.ToListAsync());
         }
 
-        // GET: OrdemServicoes/Details/5
+        // GET: PessoaJuridicas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace OrdemServicoAspNetMVC.Controllers
                 return NotFound();
             }
 
-            var ordemServico = await _context.ordensServicos
+            var pessoaJuridica = await _context.PessoaJuridica
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ordemServico == null)
+            if (pessoaJuridica == null)
             {
                 return NotFound();
             }
 
-            return View(ordemServico);
+            return View(pessoaJuridica);
         }
 
-        // GET: OrdemServicoes/Create
+        // GET: PessoaJuridicas/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: OrdemServicoes/Create
+        // POST: PessoaJuridicas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdCliente,idTipoServico,idTipoContrato,idColaborador,idDefeitoReclamado,idDefeitoIdentificado,idSolucaoAplicada,DataAbertura,DataFechamento,status")] OrdemServico ordemServico)
+        public async Task<IActionResult> Create([Bind("NomeFantansia,Cnpj,Id,NomePessoa")] PessoaJuridica pessoaJuridica)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ordemServico);
+                _context.Add(pessoaJuridica);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ordemServico);
+            return View(pessoaJuridica);
         }
 
-        // GET: OrdemServicoes/Edit/5
+        // GET: PessoaJuridicas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace OrdemServicoAspNetMVC.Controllers
                 return NotFound();
             }
 
-            var ordemServico = await _context.ordensServicos.FindAsync(id);
-            if (ordemServico == null)
+            var pessoaJuridica = await _context.PessoaJuridica.FindAsync(id);
+            if (pessoaJuridica == null)
             {
                 return NotFound();
             }
-            return View(ordemServico);
+            return View(pessoaJuridica);
         }
 
-        // POST: OrdemServicoes/Edit/5
+        // POST: PessoaJuridicas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdCliente,idTipoServico,idTipoContrato,idColaborador,idDefeitoReclamado,idDefeitoIdentificado,idSolucaoAplicada,DataAbertura,DataFechamento,status")] OrdemServico ordemServico)
+        public async Task<IActionResult> Edit(int id, [Bind("NomeFantansia,Cnpj,Id,NomePessoa")] PessoaJuridica pessoaJuridica)
         {
-            if (id != ordemServico.Id)
+            if (id != pessoaJuridica.Id)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace OrdemServicoAspNetMVC.Controllers
             {
                 try
                 {
-                    _context.Update(ordemServico);
+                    _context.Update(pessoaJuridica);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrdemServicoExists(ordemServico.Id))
+                    if (!PessoaJuridicaExists(pessoaJuridica.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace OrdemServicoAspNetMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ordemServico);
+            return View(pessoaJuridica);
         }
 
-        // GET: OrdemServicoes/Delete/5
+        // GET: PessoaJuridicas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace OrdemServicoAspNetMVC.Controllers
                 return NotFound();
             }
 
-            var ordemServico = await _context.ordensServicos
+            var pessoaJuridica = await _context.PessoaJuridica
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ordemServico == null)
+            if (pessoaJuridica == null)
             {
                 return NotFound();
             }
 
-            return View(ordemServico);
+            return View(pessoaJuridica);
         }
 
-        // POST: OrdemServicoes/Delete/5
+        // POST: PessoaJuridicas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ordemServico = await _context.ordensServicos.FindAsync(id);
-            _context.ordensServicos.Remove(ordemServico);
+            var pessoaJuridica = await _context.PessoaJuridica.FindAsync(id);
+            _context.PessoaJuridica.Remove(pessoaJuridica);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrdemServicoExists(int id)
+        private bool PessoaJuridicaExists(int id)
         {
-            return _context.ordensServicos.Any(e => e.Id == id);
+            return _context.PessoaJuridica.Any(e => e.Id == id);
         }
     }
 }
